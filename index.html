@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Codificación y configuración responsive -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Título de la pestaña -->
+  <title>Plataforma de Banca en Línea</title>
+  
+  <!-- Enlace a Bootstrap para estilos y componentes responsivos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <style>
+    /* Estructura general para que el footer se quede al final */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Clase para ocultar elementos */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO (Header) con logo, título y botón de cerrar sesión -->
+  <header class="bg-primary text-white p-3 d-flex justify-content-between align-items-center" role="banner">
+    <div class="d-flex align-items-center gap-3">
+      <img src="img/logo.png" alt="Logo del banco" width="40" height="40" />
+      <h1 class="h4 m-0">Mi Banco</h1>
+    </div>
+    <!-- Botón de cerrar sesión, oculto por defecto -->
+    <button id="logoutBtn" class="btn btn-outline-light ms-3 d-none">Cerrar sesión</button>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container mt-4">
+    
+    <!-- SECCIÓN DE INICIO DE SESIÓN -->
+    <section id="login-section" class="card mx-auto p-4 shadow mt-5" style="max-width: 500px;" aria-labelledby="titulo-login">
+      <h2 id="titulo-login" class="mb-4">Ingreso Seguro</h2>
+      
+      <!-- Formulario de ingreso con accesibilidad -->
+      <form id="login-form" role="form" aria-label="Formulario de ingreso">
+        <div class="mb-3">
+          <label for="usuario" class="form-label">Usuario</label>
+          <input type="text" id="usuario" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" id="password" class="form-control" required />
+        </div>
+        <!-- Mensaje de error oculto por defecto -->
+        <div id="login-error" class="text-danger mb-2 d-none">Usuario o contraseña incorrectos.</div>
+        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+      </form>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL DE LA APLICACIÓN (oculta hasta login exitoso) -->
+    <div id="app" class="hidden">
+      
+      <!-- BARRA DE NAVEGACIÓN POR TABS -->
+      <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="cuentas-tab" data-bs-toggle="tab" data-bs-target="#cuentas" type="button" role="tab">Cuentas</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="transferencias-tab" data-bs-toggle="tab" data-bs-target="#transferencias" type="button" role="tab">Transferencias</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos" type="button" role="tab">Pagos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="ayuda-tab" data-bs-toggle="tab" data-bs-target="#ayuda" type="button" role="tab">Ayuda</button>
+        </li>
+      </ul>
+
+      <!-- CONTENIDO DE CADA TAB -->
+      <div class="tab-content mt-3" id="myTabContent">
+
+        <!-- TAB CUENTAS -->
+        <div class="tab-pane fade show active" id="cuentas" role="tabpanel">
+          <h2>Resumen de Cuentas</h2>
+          <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+            <!-- Tarjeta Cuenta Ahorros -->
+            <div class="col">
+              <div class="card border-primary">
+                <div class="card-body">
+                  <h5 class="card-title">Cuenta Ahorros</h5>
+                  <p class="card-text">Saldo: $4.500.000</p>
+                  <p class="card-text"><small>Último movimiento: 25/jul/2025</small></p>
+                </div>
+              </div>
+            </div>
+            <!-- Tarjeta Cuenta Corriente -->
+            <div class="col">
+              <div class="card border-success">
+                <div class="card-body">
+                  <h5 class="card-title">Cuenta Corriente</h5>
+                  <p class="card-text">Saldo: $2.200.000</p>
+                  <p class="card-text"><small>Último movimiento: 22/jul/2025</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB TRANSFERENCIAS -->
+        <div class="tab-pane fade" id="transferencias" role="tabpanel">
+          <h2>Transferencias</h2>
+          <form class="mt-3">
+            <div class="mb-3">
+              <label for="cuenta-destino" class="form-label">Cuenta destino</label>
+              <input type="text" class="form-control" id="cuenta-destino" required>
+            </div>
+            <div class="mb-3">
+              <label for="valor-transferencia" class="form-label">Valor</label>
+              <input type="number" class="form-control" id="valor-transferencia" required>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <input type="text" class="form-control" id="descripcion">
+            </div>
+            <button type="submit" class="btn btn-success">Realizar transferencia</button>
+          </form>
+        </div>
+
+        <!-- TAB PAGOS -->
+        <div class="tab-pane fade" id="pagos" role="tabpanel">
+          <h2>Pagos de Servicios</h2>
+          <form class="mt-3">
+            <div class="mb-3">
+              <label for="empresa" class="form-label">Empresa</label>
+              <select class="form-select" id="empresa" required>
+                <option value="">Seleccione una empresa</option>
+                <option>Electricaribe</option>
+                <option>Claro</option>
+                <option>Acueducto</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="referencia" class="form-label">Referencia</label>
+              <input type="text" class="form-control" id="referencia" required>
+            </div>
+            <div class="mb-3">
+              <label for="monto-pago" class="form-label">Monto</label>
+              <input type="number" class="form-control" id="monto-pago" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Pagar ahora</button>
+          </form>
+        </div>
+
+        <!-- TAB AYUDA -->
+        <div class="tab-pane fade" id="ayuda" role="tabpanel">
+          <h2>Centro de Ayuda</h2>
+          <ul class="mt-3">
+            <li><strong>¿Cómo recupero mi contraseña?</strong> Haz clic en "¿Olvidaste tu contraseña?" en la página de ingreso.</li>
+            <li><strong>¿Cómo bloqueo mi tarjeta?</strong> En la sección "Cuentas", elige la tarjeta y selecciona "Bloquear".</li>
+            <li><strong>¿Cómo contacto al soporte?</strong> soporte@bancaenlinea.com o 01-8000-123-456.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA con derechos de autor -->
+  <footer class="bg-primary text-white text-center py-3 mt-auto" role="contentinfo">
+    <p class="m-0">&copy; 2025 Mi Banco. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Validación del login con usuario y contraseña fijos
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const usuario = document.getElementById('usuario').value;
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('login-error');
+
+      if (usuario === 'usuario123' && password === 'clave123') {
+        // Mostrar app, ocultar login
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('app').classList.remove('hidden');
+        logoutBtn.classList.remove('d-none');
+        error.classList.add('d-none');
+      } else {
+        // Mostrar error
+        error.classList.remove('d-none');
+      }
+    });
+
+    // Evento de cerrar sesión
+    logoutBtn.addEventListener('click', function () {
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('app').classList.add('hidden');
+      logoutBtn.classList.add('d-none');
+      loginForm.reset();
+    });
+  </script>
+</body>
+</html>
+
+
+ 
